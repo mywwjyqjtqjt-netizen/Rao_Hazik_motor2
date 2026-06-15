@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rao Hazik Motors | Premium Car Rental Multan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        :root {
+            --bg-dark: #0f0f12;
+            --bg-cards: #141419;
+            --card-bg: rgba(255,255,255,0.03);
+            --card-border: rgba(255,255,255,0.08);
+            --accent-glow: #ff3333;
+            --accent-gradient: linear-gradient(135deg, #ff4d4d 0%, #cc0000 100%);
+            --text-main: #ffffff;
+            --text-muted: #a0a0ab;
+        }
+        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        html { scroll-behavior: smooth; }
+
+        /* HEADER */
+        header {
+            position: sticky; top: 0;
+            background: rgba(15,15,18,0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 18px 20px; z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo {
+            font-size: 22px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+            background: linear-gradient(to right, #fff 55%, #ff4d4d 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .nav-phone {
+            display: flex; align-items: center; gap: 10px;
+            color: var(--text-muted); font-size: 14px; font-weight: 600;
+            text-decoration: none; transition: color 0.2s;
+        }
+        .nav-phone:hover { color: #fff; }
+        .nav-phone-dot {
+            width: 8px; height: 8px; border-radius: 50%; background: #25D366;
+            box-shadow: 0 0 6px #25D366; animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+        /* HERO BANNER */
+        .hero-banner-container { max-width: 1200px; margin: 28px auto 0; padding: 0 20px; }
+        .hero-banner {
+            width: 100%; border-radius: 18px;
+            box-shadow: 0 24px 50px rgba(0,0,0,0.55);
+            display: block; height: auto; object-fit: contain;
+            border: 1px solid var(--card-border);
+        }
+
+        /* SEARCH */
+        .search-section { max-width: 580px; margin: 36px auto; padding: 0 20px; }
+        .search-box {
+            position: relative; background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 6px; border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex; align-items: center; backdrop-filter: blur(8px);
+        }
+        .search-icon {
+            padding-left: 18px; color: var(--text-muted); font-size: 18px; flex-shrink: 0;
+        }
+        .search-box input {
+            width: 100%; background: transparent; border: none;
+            padding: 12px 20px; outline: none; font-size: 15px; color: #fff;
+        }
+        .search-box input::placeholder { color: var(--text-muted); }
+
+        /* SECTIONS */
+        .section-wrapper { max-width: 1200px; margin: 80px auto; padding: 0 20px; }
+        .section-title {
+            text-align: center; margin-bottom: 50px;
+            font-size: 36px; font-weight: 800; letter-spacing: 0.5px;
+        }
+        .section-title span {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .section-subtitle {
+            text-align: center; color: var(--text-muted);
+            font-size: 15px; margin-top: -36px; margin-bottom: 48px;
+        }
+
+        /* STATS BAR */
+        .stats-bar {
+            max-width: 1200px; margin: 0 auto 10px; padding: 0 20px;
+        }
+        .stats-inner {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 14px; padding: 28px 40px;
+            display: flex; justify-content: space-around; flex-wrap: wrap; gap: 24px;
+        }
+        .stat-item { text-align: center; }
+        .stat-num {
+            font-size: 32px; font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+        /* FLEET GRID */
+        .fleet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px,1fr)); gap: 30px; }
+        .car-card {
+            background: var(--card-bg); border-radius: 16px;
+            overflow: hidden; border: 1px solid var(--card-border);
+            transition: all 0.38s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+        }
+        .car-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255,77,77,0.38);
+            box-shadow: 0 18px 40px rgba(255,51,51,0.12);
+        }
+        .car-card.hidden { display: none; }
+        .img-container { width: 100%; height: 210px; overflow: hidden; background: #18181c; }
+        .car-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .car-card:hover .car-img { transform: scale(1.07); }
+        .car-badge {
+            position: absolute; top: 16px; right: 16px;
+            background: rgba(0,0,0,0.65); backdrop-filter: blur(6px);
+            border: 1px solid var(--card-border);
+            font-size: 11px; font-weight: 700; letter-spacing: 1px;
+            padding: 4px 10px; border-radius: 20px; text-transform: uppercase; color: var(--text-muted);
+        }
+        .car-badge.hot { border-color: rgba(255,77,77,0.4); color: #ff7070; }
+        .car-info { padding: 22px; }
+        .car-info h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #fff; }
+        .car-meta { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+        .car-meta-item { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 5px; }
+        .car-meta-item span { font-size: 14px; }
+        .price-tag {
+            display: inline-block; font-size: 17px; font-weight: 800; color: #ff4d4d;
+            background: rgba(255,77,77,0.1); padding: 4px 14px;
+            border-radius: 30px; margin-bottom: 18px;
+        }
+        .btn-group { display: flex; gap: 10px; }
+        .btn {
+            flex: 1; text-align: center; padding: 13px 10px;
+            border-radius: 10px; text-decoration: none; font-weight: 700;
+            font-size: 13px; transition: all 0.28s ease;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .btn-call {
+            background: rgba(255,255,255,0.05); color: #fff;
+            border: 1px solid var(--card-border);
+        }
+        .btn-call:hover { background: rgba(255,255,255,0.14); border-color: #fff; }
+        .btn-whatsapp {
+            background: var(--accent-gradient); color: #fff;
+            box-shadow: 0 4px 14px rgba(255,77,77,0.2);
+        }
+        .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(255,77,77,0.38); }
+
+        /* NO RESULTS */
+        .no-results {
+            text-align: center; color: var(--text-muted);
+            padding: 60px 20px; font-size: 16px; display: none;
+        }
+
+        /* SERVICES */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 26px; }
+        .service-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid var(--card-border);
+            padding: 36px 28px; border-radius: 16px; text-align: center;
+            transition: border-color 0.3s;
+        }
+        .service-card:hover { border-color: rgba(255,77,77,0.3); }
+        .service-icon { font-size: 38px; margin-bottom: 18px; display: inline-block; }
+        .service-card h4 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+        .service-card p { color: var(--text-muted); font-size: 14px; line-height: 1.7; }
+
+        /* WHY US */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 22px; }
+        .feature-item {
+            background: var(--bg-cards); border: 1px solid var(--card-border);
+            padding: 28px; border-radius: 12px;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        .feature-item:hover { border-color: rgba(255,77,77,0.3); transform: translateY(-4px); }
+        .feature-num {
+            font-size: 13px; font-weight: 800; letter-spacing: 2px;
+            color: #ff4d4d; margin-bottom: 14px; display: block;
+        }
+        .feature-item h5 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+        .feature-item p { color: var(--text-muted); font-size: 13px; line-height: 1.7; }
+
+        /* FAQ */
+        .faq-container { max-width: 780px; margin: 0 auto; }
+        .faq-item {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            margin-bottom: 14px; border-radius: 12px; overflow: hidden;
+        }
+        .faq-question {
+            padding: 20px 22px; font-weight: 700; font-size: 15px;
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            user-select: none; transition: color 0.2s;
+        }
+        .faq-question:hover { color: #ff7070; }
+        .faq-toggle {
+            font-size: 22px; color: #ff4d4d;
+            transition: transform 0.3s ease; flex-shrink: 0; margin-left: 12px;
+        }
+        .faq-answer {
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.3s ease;
+            padding: 0 22px; color: var(--text-muted);
+            font-size: 14px; line-height: 1.75;
+            border-top: 0px solid transparent;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 220px; padding: 18px 22px;
+            border-top: 1px solid var(--card-border);
+        }
+        .faq-item.active .faq-toggle { transform: rotate(45deg); }
+
+        /* CTA STRIP */
+        .cta-strip {
+            max-width: 1200px; margin: 0 auto 80px; padding: 0 20px;
+        }
+        .cta-inner {
+            background: linear-gradient(135deg, rgba(255,77,77,0.15) 0%, rgba(204,0,0,0.08) 100%);
+            border: 1px solid rgba(255,77,77,0.25); border-radius: 18px;
+            padding: 52px 40px; text-align: center;
+        }
+        .cta-inner h2 { font-size: 32px; font-weight: 800; margin-bottom: 14px; }
+        .cta-inner p { color: var(--text-muted); font-size: 16px; margin-bottom: 30px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .cta-btn-main {
+            display: inline-block; padding: 16px 36px; border-radius: 12px;
+            background: var(--accent-gradient); color: #fff; font-weight: 700;
+            font-size: 15px; text-decoration: none;
+            box-shadow: 0 6px 20px rgba(255,77,77,0.3);
+            transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .cta-btn-main:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,77,77,0.45); }
+        .cta-btn-sec {
+            display: inline-block; padding: 16px 36px; border-radius: 12px;
+            background: rgba(255,255,255,0.06); color: #fff; font-weight: 700;
+            font-size: 15px; text-decoration: none; border: 1px solid var(--card-border);
+            transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .cta-btn-sec:hover { background: rgba(255,255,255,0.14); border-color: #fff; }
+
+        /* FLOATING WA */
+        .floating-wa {
+            position: fixed; bottom: 28px; right: 28px;
+            background: #25D366; width: 58px; height: 58px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 28px rgba(37,211,102,0.35);
+            z-index: 999; transition: transform 0.3s ease; text-decoration: none;
+        }
+        .floating-wa:hover { transform: scale(1.12); }
+        .floating-wa svg { width: 30px; height: 30px; fill: #fff; }
+
+        /* FOOTER */
+        footer {
+            background: #08080a; color: #fff;
+            padding: 56px 20px 28px; border-top: 1px solid var(--card-border);
+        }
+        .footer-container {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; flex-wrap: wrap;
+            justify-content: space-between; gap: 40px;
+        }
+        .footer-col { flex: 1; min-width: 240px; }
+        .footer-col h4 {
+            color: #fff; margin-bottom: 20px; font-size: 15px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            padding-bottom: 10px; border-bottom: 1px solid var(--card-border);
+        }
+        .footer-col p, .footer-col a {
+            color: var(--text-muted); font-size: 14px;
+            margin-bottom: 10px; display: block; text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: #ff7070; }
+        .footer-logo {
+            font-size: 20px; font-weight: 800; letter-spacing: 1px;
+            background: linear-gradient(to right, #fff 55%, #ff4d4d 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 14px; display: inline-block;
+        }
+        .footer-bottom {
+            text-align: center; padding-top: 36px; margin-top: 36px;
+            border-top: 1px solid var(--card-border);
+            font-size: 13px; color: #44444c;
+        }
+        .footer-bottom span { color: #ff4d4d; }
+
+        /* RESPONSIVE */
+        @media (max-width: 640px) {
+            .section-title { font-size: 26px; }
+            .stats-inner { padding: 22px 20px; }
+            .stat-num { font-size: 26px; }
+            .cta-inner { padding: 36px 22px; }
+            .cta-inner h2 { font-size: 24px; }
+            .nav-phone-text { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">Rao Hazik Motors</div>
+            <a href="tel:+923051784510" class="nav-phone">
+                <div class="nav-phone-dot"></div>
+                <span class="nav-phone-text">0305-1784510</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO BANNER -->
+    <section class="hero-banner-container">
+        <img src="https://i.ibb.co/hFtJHT80/unnamed.webp" alt="Rao Hazik Motors – Premium Car Rental Multan" class="hero-banner">
+    </section>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar" style="margin-top:36px;">
+        <div class="stats-inner">
+            <div class="stat-item">
+                <div class="stat-num">500+</div>
+                <div class="stat-label">Satisfied Clients</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">12+</div>
+                <div class="stat-label">Premium Vehicles</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">24/7</div>
+                <div class="stat-label">Service Available</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">5★</div>
+                <div class="stat-label">Client Rating</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search-section">
+        <div class="search-box">
+            <div class="search-icon">🔍</div>
+            <input type="text" id="carSearch" placeholder="Search fleet (e.g. Civic, BMW, Prado)..." oninput="filterCars()">
+        </div>
+    </div>
+    <div class="no-results" id="noResults">No vehicles found. Try a different search. 🚗</div>
+
+    <!-- FLEET -->
+    <section class="section-wrapper" style="margin-top:0;">
+        <h2 class="section-title">Our Premium <span>Fleet</span></h2>
+        <p class="section-subtitle">All vehicles fully maintained · Chauffeur available on request</p>
+        <div class="fleet-grid" id="carsGrid">
+
+            <!-- BMW -->
+            <div class="car-card" data-name="bmw luxury car sedan">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/PBZyJhN/Screenshot-2026-0615-102004.png" class="car-img" alt="BMW">
+                </div>
+                <div class="car-badge hot">Popular</div>
+                <div class="car-info">
+                    <h3>BMW Series</h3>
+                    <div class="car-meta">
+                        <div class="car-meta-item"><span>🪑</span> 5 Seats</div>
+                        <div class="car-meta-item"><span>⚙️</span> Automatic</div>
+                        <div class="car-meta-item"><span>❄️</span> Full AC</div>
+                    </div>
+                    <span class="price-tag">Rs. 45,000 / day</span>
+                    <div class="btn-group">
+                        <a href="tel:+923051784510" class="btn btn-call">📞 Call</a>
+                        <a href="https://wa.me/923051784510?text=I%20want%20to%20book%20BMW" class="btn btn-whatsapp">Book via WA</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Land Cruiser LC 300 -->
+            <div class="car-card" data-name="toyota land cruiser lc300 suv v8">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/0R76nw4z/Screenshot-2026-0615-101857.png" class="car-img" alt="Land Cruiser LC 300">
+                </div>
+                <div class="car-badge hot">Top Pick</div>
+                <div class="car-info">
+                    <h3>Land Cruiser LC 300</h3>
+                    <div class="car-meta">
+                        <div class="car-meta-item"><span>🪑</span> 7 Seats</div>
+                        <div class="car-meta-item"><span>⚙️</span> Automatic</div>
+                        <div class="car-meta-item"><span>🛡️</span> 4WD</div>
+                    </div>
+                    <span class="price-tag">Rs. 30,000 / day</span>
+                    <div class="btn-group">
+                        <a href="tel:+923051784510" class="btn btn-call">📞 Call</a>
+                        <a href="https://wa.me/923051784510?text=I%20want%20to%20book%20Land%20Cruiser%20LC300" class="btn btn-whatsapp">Book via WA</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Corolla Cross Euro -->
+            <div class="car-card" data-name="toyota corolla cross euro suv crossover">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/MxZ2q777/Screenshot-2026-0615-101942.png" class="car-img" alt="Corolla Cross Euro">
+                </div>
+                <div class="car-badge">Crossover</div>
+                <div class="car-info">
+                    <h3>Corolla Cross (Euro)</h3>
+                    <div class="car-meta">
+                        <div class="car-meta-item"><span>🪑</span> 5 Seats</div>
+                        <div class="car-meta-item"><span>⚙️</span> Automatic</div>
+                        <div class="car-meta-item"><span>⛽</span> Hybrid</div>
+                    </div>
+                    <span class="price-tag">Rs. 12,000 / day</span>
+                    <div class="btn-group">
+                        <a href="tel:+923051784510" class="btn btn-call">📞 Call</a>
+                        <a href="https://wa.me/923051784510?text=I%20want%20to%20book%20Corolla%20Cross%20Euro" class="btn btn-whatsapp">Book via WA</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Civic RS Turbo -->
+            <div class="car-card" data-name="honda civic rs turbo sports sedan">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/5xB42SMk/Screenshot-2026-0615-101919.png" class="car-img" alt="Civic RS Turbo">
+                </div>
+                <div class="car-badge hot">Hot</div>
+                <div class="car-info">
+                    <h3>Civic RS Turbo</h3>
+                    <div class="car-meta">
+                        <div class="car-meta-item"><span>🪑</span> 5 Seats</div>
+                        <div class="car-meta-item"><span>⚙️</span> Automatic</div>
+                        <div class="car-meta-item"><span>🚀</span> Turbo</div>
+                    </div>
+                    <span class="price-tag">Rs. 12,000 / day</span>
+                    <div class="btn-group">
+                        <a href="tel:+923051784510" class="btn btn-call">📞 Call</a>
+                        <a href="https://wa.me/923051784510?text=I%20want%20to%20book%20Civic%20RS%20Turbo" class="btn btn-whatsapp">Book via WA</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Corolla Grande 1 -->
+            <div class="car-card" data-name="toyota corolla grande sedan">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/DPtDXzKv/Screenshot-2026-0615-082852.png" class="car-img" alt="Corolla Grande 1">
+                </div>
+                <div class="car-badge">Sedan</div>
+                <div class="car-info">
+                    <h3>Corolla Grande (1)</h3>
+                    <div class="car-meta">
+                        <div class="car-meta-item"><span>🪑</span> 5 Seats</div>
+                        <div class="car-meta-item"><span>⚙️</span> Automatic</div>
+                        <div class="car-meta-item"><span>❄️</span> Full AC</div>
+                    </div>
+                    <span class="price-tag">Rs. 10,000 / day</span>
+                    <div class="btn-group">
+                        <a href="tel:+923051784510" class="btn btn-call">📞 Call</a>
+                        <a href="https://wa.me/923051784510?text=I%20want%20to%20book%20Corolla%20Grande%201" class="btn btn-whatsapp">Book via WA</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Corolla Grande 2 -->
+            <div class="car-card" data-name="toyota corolla grande sedan 2">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/hxKR5hG7/Screenshot-2026-0615-082725.png" class="car-img" alt="Corolla Grande 2">
+                </div>
+                <div class="car-badge">Sedan</div>
+                <div class="car-info">
+                    <h3>Corolla Grande (2)</h3>
+                    <div class="car-meta">
+                        <div class="car-meta-item"><span>🪑</span> 5 Seats</div>
+                        <div class="car-meta-item"><span>⚙️</span> Automatic</div>
+                        <div class="car-meta-item"><span>❄️</span> Full AC</div>
+                    </div>
+                    <span class="price-tag">Rs. 10,000 / day</span>
+                    <div class="btn-group">
+                        <a href="tel:+923051784510" class="btn btn-call">📞 Call</a>
+                        <a href="https://wa.me/923051784510?text=I%20want%20to%20book%20Corolla%20Grande%202" class="btn btn-whatsapp">Book via WA</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toyota Prado V8 -->
+            <div class="car-card" data-name="toyota prado v8 suv luxury 4x4">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/0R76nw4z/Screenshot-2026-0615-101857.png" class="car-img" alt="Toyota Prado V8">
+                </div>
+                <div class="car-badge">SUV</div>
+                <div class="car-info">
+                    <h3>Toyota Prado V8</h3>
+                    <div class="car-meta">
+                        <div class="car-meta-item"><span>🪑</span> 7 Seats</div>
+                        <div class="car-meta-item"><span>⚙️</span> Automatic</div>
+                        <div class="car-meta-item"><span>🛡️</span> 4WD</div>
+                    </div>
+                    <span class="price-tag">Rs. 25,000 / day</span>
+                    <div class="btn-group">
+                        <a href="tel:+923051784510" class="btn btn-call">📞 Call</a>
+                        <a href="https://wa.me/923051784510?text=I%20want%20to%20book%20Toyota%20Prado%20V8" class="btn btn-whatsapp">Book via WA</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audi A6 -->
+            <div class="car-card" data-name="audi a6 luxury sedan corporate executive">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/PBZyJhN/Screenshot-2026-0615-102004.png" class="car-img" alt="Audi A6">
+                </div>
+                <div class="car-badge hot">Executive</div>
+                <div class="car-info">
+                    <h3>Audi A6 Sedan</h3>
+                    <div class="car-meta">
+                        <div class="car-meta-item"><span>🪑</span> 5 Seats</div>
+                        <div class="car-meta-item"><span>⚙️</span> Automatic</div>
+                        <div class="car-meta-item"><span>💼</span> Corporate</div>
+                    </div>
+                    <span class="price-tag">Rs. 35,000 / day</span>
+                    <div class="btn-group">
+                        <a href="tel:+923051784510" class="btn btn-call">📞 Call</a>
+                        <a href="https://wa.me/923051784510?text=I%20want%20to%20book%20Audi%20A6" class="btn btn-whatsapp">Book via WA</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KIA Sportage -->
+            <div class="car-card" data-name="kia sportage suv crossover family">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/0R76nw4z/Screenshot-2026-0615-101857.png" class="car-img" alt="KIA Sportage">
+                </div>
+                <div class="car-badge">Family</div>
+                <div class="car-info">
+                    <h3>KIA Sportage</h3>
+                    <div class="car-meta">
+                        <div class="car-meta-item"><span>🪑</span> 5 Seats</div>
+                        <div class="car-meta-item"><span>⚙️</span> Automatic</div>
+                        <div class="car-meta-item"><span>❄️</span> Full AC</div>
+                    </div>
+                    <span class="price-tag">Rs. 12,000 / day</span>
+                    <div class="btn-group">
+                        <a href="tel:+923051784510" class="btn btn-call">📞 Call</a>
+                        <a href="https://wa.me/923051784510?text=I%20want%20to%20book%20KIA%20Sportage" class="btn btn-whatsapp">Book via WA</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fortuner -->
+            <div class="car-card" data-name="toyota fortuner sigma suv 4x4 family">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/MxZ2q777/Screenshot-2026-0615-101942.png" class="car-img" alt="Fortuner Sigma">
+                </div>
+                <div class="car-badge">SUV</div>
+                <div class="car-info">
+                    <h3>Toyota Fortuner</h3>
+                    <div class="car-meta">
+                        <div class="car-meta-item"><span>🪑</span> 7 Seats</div>
+                        <div class="car-meta-item"><span>⚙️</span> Automatic</div>
+                        <div class="car-meta-item"><span>🛡️</span> 4WD</div>
+                    </div>
+                    <span class="price-tag">Rs. 20,000 / day</span>
+                    <div class="btn-group">
+                        <a href="tel:+923051784510" class="btn btn-call">📞 Call</a>
+                        <a href="https://wa.me/923051784510?text=I%20want%20to%20book%20Fortuner" class="btn btn-whatsapp">Book via WA</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mercedes -->
+            <div class="car-card" data-name="mercedes benz c class luxury vip sedan">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/5xB42SMk/Screenshot-2026-0615-101919.png" class="car-img" alt="Mercedes C-Class">
+                </div>
+                <div class="car-badge hot">VIP</div>
+                <div class="car-info">
+                    <h3>Mercedes C-Class</h3>
+                    <div class="car-meta">
+                        <div class="car-meta-item"><span>🪑</span> 5 Seats</div>
+                        <div class="car-meta-item"><span>⚙️</span> Automatic</div>
+                        <div class="car-meta-item"><span>👑</span> VIP</div>
+                    </div>
+                    <span class="price-tag">Rs. 50,000 / day</span>
+                    <div class="btn-group">
+                        <a href="tel:+923051784510" class="btn btn-call">📞 Call</a>
+                        <a href="https://wa.me/923051784510?text=I%20want%20to%20book%20Mercedes%20C-Class" class="btn btn-whatsapp">Book via WA</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hiace Grand Cabin -->
+            <div class="car-card" data-name="toyota hiace grand cabin van minibus group">
+                <div class="img-container">
+                    <img src="https://i.ibb.co/DPtDXzKv/Screenshot-2026-0615-082852.png" class="car-img" alt="Hiace Grand Cabin">
+                </div>
+                <div class="car-badge">Van</div>
+                <div class="car-info">
+                    <h3>Hiace Grand Cabin</h3>
+                    <div class="car-meta">
+                        <div class="car-meta-item"><span>🪑</span> 15 Seats</div>
+                        <div class="car-meta-item"><span>⚙️</span> Manual</div>
+                        <div class="car-meta-item"><span>👨‍👩‍👧‍👦</span> Group</div>
+                    </div>
+                    <span class="price-tag">Rs. 18,000 / day</span>
+                    <div class="btn-group">
+                        <a href="tel:+923051784510" class="btn btn-call">📞 Call</a>
+                        <a href="https://wa.me/923051784510?text=I%20want%20to%20book%20Hiace%20Grand%20Cabin" class="btn btn-whatsapp">Book via WA</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section-wrapper" style="margin-top:0;">
+        <h2 class="section-title">Our <span>Services</span></h2>
+        <p class="section-subtitle">Tailored for every occasion — from weddings to corporate transfers</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">✈️</div>
+                <h4>Airport Transfers</h4>
+                <p>Seamless pick-up and drop-off at Multan International Airport. On time, every time, with flight tracking included.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💍</div>
+                <h4>Wedding Cars</h4>
+                <p>Make your special day unforgettable. Decorated luxury vehicles with professional chauffeurs for all ceremonies.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💼</div>
+                <h4>Corporate Rentals</h4>
+                <p>Executive vehicles for meetings, roadshows, and client pickups. Monthly and weekly packages available.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🗺️</div>
+                <h4>City & Outstation Tours</h4>
+                <p>Explore Multan or travel across Punjab and Sindh with comfort. Fuel and driver included on request.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📅</div>
+                <h4>Long-Term Hire</h4>
+                <p>Weekly and monthly rental plans at discounted rates. Perfect for extended stays or project-based needs.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🕐</div>
+                <h4>24/7 On-Call</h4>
+                <p>Round-the-clock availability. Book a vehicle any time of the day or night — we are always ready.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section class="section-wrapper" style="margin-top:0;">
+        <h2 class="section-title">Why <span>Choose Us</span></h2>
+        <p class="section-subtitle">Multan's most trusted rental service since 2015</p>
+        <div class="features-grid">
+            <div class="feature-item">
+                <span class="feature-num">01</span>
+                <h5>Verified Fleet</h5>
+                <p>Every vehicle passes a thorough maintenance check before any booking. Your safety is our first priority.</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-num">02</span>
+                <h5>Transparent Pricing</h5>
+                <p>No hidden charges. The price you see is exactly what you pay — fuel, tolls, and driver discussed upfront.</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-num">03</span>
+                <h5>Professional Drivers</h5>
+                <p>All our chauffeurs are vetted, licensed, and trained to provide courteous, punctual service.</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-num">04</span>
+                <h5>Instant Booking</h5>
+                <p>Book in seconds via WhatsApp or call. Confirmation sent immediately — no lengthy forms or wait times.</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-num">05</span>
+                <h5>Wide Fleet Range</h5>
+                <p>From economy sedans to luxury SUVs and vans — one provider for all your transport needs in Multan.</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-num">06</span>
+                <h5>Local Expertise</h5>
+                <p>Deep knowledge of Multan routes, landmarks, and traffic — our drivers get you there faster.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section-wrapper" style="margin-top:0;">
+        <h2 class="section-title">Common <span>Questions</span></h2>
+        <div class="faq-container">
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    Is a driver included with the rental?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">Yes, all our vehicles can be booked with a professional driver included. Self-drive options are available for select vehicles on request — contact us to discuss.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    How far in advance should I book?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">We recommend booking at least 24 hours in advance to secure your preferred vehicle. For weddings or peak season dates, 3–5 days notice is ideal. Same-day bookings are accepted subject to availability.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    Are fuel costs included in the price?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">Fuel is generally the customer's responsibility unless a package price is agreed upon. We will clarify this at the time of booking so there are no surprises.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    Can I book for outstation travel from Multan?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">Absolutely. We provide outstation travel across Punjab and Sindh. Rates for long-distance trips are calculated separately — call or WhatsApp us with your destination for a custom quote.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    What payment methods are accepted?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">We accept cash, bank transfer (online payment), and Easypaisa / JazzCash mobile payments. A partial advance may be required at time of booking for premium vehicles.</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA STRIP -->
+    <div class="cta-strip">
+        <div class="cta-inner">
+            <h2>Ready to Book Your Ride?</h2>
+            <p>Talk to us now on WhatsApp or give us a call — we'll confirm your booking in minutes.</p>
+            <div class="cta-buttons">
+                <a href="https://wa.me/923051784510?text=I%20want%20to%20book%20a%20car" class="cta-btn-main">💬 WhatsApp Now</a>
+                <a href="tel:+923051784510" class="cta-btn-sec">📞 0305-1784510</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-logo">Rao Hazik Motors</div>
+                <p>Multan's premier car rental service. Luxury, comfort, and reliability — for every journey.</p>
+                <p style="margin-top:14px; color:#555560;">© 2026 Rao Hazik Motors</p>
+            </div>
+            <div class="footer-col">
+                <h4>Fleet</h4>
+                <a href="#">BMW Series</a>
+                <a href="#">Land Cruiser LC 300</a>
+                <a href="#">Toyota Prado V8</a>
+                <a href="#">Audi A6 Sedan</a>
+                <a href="#">Corolla Grande</a>
+                <a href="#">Civic RS Turbo</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="tel:+923051784510">📞 0305-1784510</a>
+                <a href="https://wa.me/923051784510">💬 WhatsApp Us</a>
+                <p>📍 Multan, Punjab, Pakistan</p>
+                <p>🕐 Available 24/7</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Built with <span>♥</span> for Rao Hazik Motors &nbsp;|&nbsp; Premium Car Rental Multan
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/923051784510?text=I%20want%20to%20book%20a%20car" class="floating-wa" title="Chat on WhatsApp">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 0C7.163 0 0 7.163 0 16c0 2.828.736 5.482 2.025 7.782L0 32l8.432-2.012A15.94 15.94 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.27 13.27 0 01-6.788-1.858l-.486-.289-5.006 1.194 1.216-4.872-.317-.5A13.267 13.267 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.279-9.937c-.4-.2-2.366-1.168-2.733-1.301-.366-.133-.633-.2-.9.2-.266.4-1.033 1.301-1.266 1.568-.234.267-.467.3-.867.1-.4-.2-1.69-.623-3.22-1.986-1.19-1.06-1.993-2.37-2.227-2.77-.233-.4-.025-.616.175-.815.18-.18.4-.467.6-.7.2-.233.267-.4.4-.667.133-.267.067-.5-.033-.7-.1-.2-.9-2.168-1.233-2.968-.325-.778-.656-.673-.9-.686l-.766-.013c-.267 0-.7.1-1.067.5-.366.4-1.4 1.368-1.4 3.335s1.434 3.868 1.634 4.135c.2.267 2.82 4.303 6.832 6.035.954.412 1.699.658 2.28.842.957.305 1.83.262 2.52.159.768-.114 2.366-.968 2.7-1.902.333-.934.333-1.735.233-1.902-.1-.167-.367-.267-.767-.467z"/>
+        </svg>
+    </a>
+
+    <script>
+        // Search / filter
+        function filterCars() {
+            const q = document.getElementById('carSearch').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.car-card');
+            let visible = 0;
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name') || '';
+                const title = card.querySelector('h3')?.textContent?.toLowerCase() || '';
+                if (!q || name.includes(q) || title.includes(q)) {
+                    card.classList.remove('hidden');
+                    visible++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+            document.getElementById('noResults').style.display = (visible === 0 && q) ? 'block' : 'none';
+        }
+
+        // FAQ accordion
+        function toggleFaq(el) {
+            const item = el.parentElement;
+            const isOpen = item.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+            if (!isOpen) item.classList.add('active');
+        }
+    </script>
+</body>
+</html>
